@@ -1,7 +1,11 @@
+
 # Environment variables and API credentials
 .env
 .env.*
 !.env.example
+
+# Local SHA-256 application hash input file
+hashes.txt
 
 # Python cache files
 __pycache__/
