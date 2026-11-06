@@ -120,83 +120,113 @@ An empty uncertainty log does not independently confirm that every classificatio
 
 📝 [View Uncertain Permissions Log](examples/uncertain_permissions_log.txt%20%28Example%29)
 
+
 ## Technology Stack
 
 | Technology | Purpose |
 |---|---|
-| Python 3 | Core implementation |
-| VirusTotal API | Android application metadata retrieval |
-| Requests | HTTP requests |
-| BeautifulSoup | HTML documentation parsing |
-| XML ElementTree | XML parsing of AOSP permission metadata |
-| JSON | Processing VirusTotal responses |
-| CSV | Exporting analysis results |
-| Regular Expressions | Text and permission processing |
+| Python 3 | Core programming language used for permission extraction, classification and reporting |
+| VirusTotal API | Retrieves Android application metadata using SHA-256 file hashes |
+| Requests | Handles HTTP requests to external APIs and documentation sources |
+| BeautifulSoup | Extracts information from Android developer documentation |
+| XML ElementTree | Parses Android permission metadata from AOSP XML files |
+| JSON | Processes application metadata returned by the VirusTotal API |
+| CSV | Generates structured permission analysis reports |
+| Regular Expressions | Supports permission extraction and text processing |
+| `hashes.txt` | Input file containing SHA-256 hashes of Android applications to be analysed, with one hash per line |
 
-## Requirements
 
-- Python 3
-- A VirusTotal API key
-- Internet connection
+## Getting Started
+
+### Prerequisites
+
+Before running PRAFM, ensure you have:
+
+- Python 3 installed
+- A valid VirusTotal API key
+- An internet connection
+- A `hashes.txt` file containing the SHA-256 hashes of the Android applications you wish to analyse
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/YOUR-USERNAME/PRAFM.git
+cd PRAFM
+```
+
+Replace `YOUR-USERNAME` with your GitHub username.
+
+### 2. Install Dependencies
 
 Install the required Python packages:
 
 ```bash
-pip install requests beautifulsoup4
+pip install -r requirements.txt
 ```
 
-## Getting Started
+### 3. Configure Your VirusTotal API Key
 
-1. Clone the repository:
+PRAFM uses the VirusTotal API to retrieve Android application metadata.
 
-git clone https://github.com/YOUR-USERNAME/PRAFM.git
+The API key should be stored securely as an environment variable named `VIRUSTOTAL_API_KEY`.
 
-Navigate into the project directory:
+For GitHub Codespaces:
 
-cd PRAFM
+1. Open your GitHub account settings.
+2. Navigate to **Secrets and variables → Codespaces**.
+3. Create a new secret named `VIRUSTOTAL_API_KEY`.
+4. Enter your VirusTotal API key.
+5. Grant access to your PRAFM repository.
+6. Restart your Codespace to make the secret available.
 
-Install dependencies:
+**Security:** Never include your API key directly in the source code or commit it to GitHub.
 
-pip install -r requirements.txt
+### 4. Prepare the SHA-256 Input File
 
-Configure your VirusTotal API key.
+PRAFM uses a text file named `hashes.txt` to identify the Android applications to be analysed.
 
-For safer key management, use an environment variable rather than committing your API key to the repository. The script should read it using:
+Create `hashes.txt` in the main project directory, alongside `main.py`.
 
-import os
+Add one SHA-256 hash per line, without quotation marks, commas or other formatting.
 
-API_KEY = os.getenv("VIRUSTOTAL_API_KEY")
+Example structure:
 
-Set the environment variable before running the script.
+```text
+<first-64-character-sha256-hash>
+<second-64-character-sha256-hash>
+<third-64-character-sha256-hash>
+```
 
-Run the Python script:
+Each SHA-256 hash must consist of 64 hexadecimal characters.
 
-python main.py
+The file should look like this in your local project:
 
-Review the generated CSV report and uncertainty log.
-
-Project Structure
-
+```text
 PRAFM/
-│
 ├── main.py
+├── hashes.txt
 ├── requirements.txt
-├── README.md
-│
-├── outputs/
-│   ├── permissions_report.csv
-│   └── uncertain_permissions_log.txt
-│
-└── docs/
-    └── methodology.md
+└── README.md
+```
 
-The folders shown above are a suggested repository structure. Create them as needed when organising the project.
+**Note:** The `hashes.txt` file is intended as a local input file. It can be excluded from the public GitHub repository using `.gitignore`.
 
-Scope and Limitations
+### 5. Run PRAFM
+
+Once the dependencies, API key and SHA-256 input file are configured, run:
+
+```bash
+python main.py
+```
+
+PRAFM will retrieve available application metadata, extract declared Android permissions and apply its permission classification rules.
+
+
+## Scope and Limitations
 
 PRAFM focuses on the analysis of Android application permission metadata. Its classifications are intended to support privacy-oriented investigation and provide an initial indication of potentially sensitive permission usage.
 
-There are several important limitations:
+### There are several important limitations:
 
 Declared permissions do not necessarily indicate that an application actively uses the associated functionality.
 
@@ -208,7 +238,7 @@ The tool does not perform dynamic application analysis, network traffic inspecti
 
 The output should be treated as an investigative aid rather than a definitive privacy assessment or quantitative risk score.
 
-Security and Responsible Use
+### Security and Responsible Use
 
 Do not commit VirusTotal API keys or other credentials to the repository.
 
@@ -218,7 +248,7 @@ Check the provenance and redistribution rights of application hashes and associa
 
 Review generated reports before sharing them publicly, particularly if they contain sensitive or identifying information.
 
-Project Focus
+## Project Focus
 
 PRAFM explores the relationship between Android application permissions and mobile privacy. It brings together automated metadata collection, permission classification and privacy-oriented categorisation to support a more structured understanding of the information and device capabilities an application may request.
 
