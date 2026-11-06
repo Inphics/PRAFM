@@ -82,15 +82,43 @@ The tool generates two main output files:
 | `permissions_report.csv` | Structured report containing application and permission information, protection levels, visibility classifications and privacy categories. |
 | `uncertain_permissions_log.txt` | Log of permissions that could not be confidently categorised. |
 
-The CSV report contains the following fields:
+## Example Analysis Results
 
-- Total Permissions
-- Package
-- Permission
-- Protection Level
-- Description
-- User Visibility
-- Category
+PRAFM has been successfully executed against a collection of Android application SHA-256 hashes, generating permission-based privacy analysis results.
+
+The following files demonstrate the tool's reporting capabilities.
+
+### 📋 Interpreting the Results
+
+The `permissions_report.csv` file provides a structured overview of the permissions declared by the Android applications examined.
+
+Each record includes:
+
+- **Total Permissions** — Number of permissions identified for an application.
+- **Package** — Android application package identifier.
+- **Permission** — Declared Android permission.
+- **Protection Level** — Android permission protection-level metadata.
+- **Description** — Permission description.
+- **User Visibility** — User-visible or user-hidden classification.
+- **Category** — PII, Digital or Cyberphysical classification.
+
+### 📝 Uncertainty Handling
+
+PRAFM also generates `uncertain_permissions_log.txt` to document permissions requiring further classification review.
+
+During the example execution, the uncertainty log was empty, indicating that no uncertain classifications were recorded.
+
+An empty uncertainty log does not independently confirm that every classification is correct. The tool uses predefined rules and heuristic approaches, and some classifications may still require manual validation.
+
+> **Note:** PRAFM analyses declared permission metadata rather than observed application behaviour. The results are intended to support privacy assessment and further investigation, not provide definitive conclusions about an application's privacy practices.
+
+---
+
+**Explore the generated outputs:**
+
+📊 [View Permission Analysis Report](permissions_report.csv)
+
+📝 [View Uncertain Permissions Log](uncertain_permissions_log.txt)
 
 ## Technology Stack
 
