@@ -116,7 +116,7 @@ An empty uncertainty log does not independently confirm that every classificatio
 
 **Explore the generated outputs:**
 
-📊 [View Permission Analysis Report](permissions_report.csv)
+📊 [View Permission Analysis Report](permissions_report.csv (Example))
 
 📝 [View Uncertain Permissions Log](uncertain_permissions_log.txt)
 
