@@ -119,4 +119,85 @@ pip install requests beautifulsoup4
 
 ## Getting Started
 
-1.
+1. Clone the repository:
+
+git clone https://github.com/YOUR-USERNAME/PRAFM.git
+
+Navigate into the project directory:
+
+cd PRAFM
+
+Install dependencies:
+
+pip install -r requirements.txt
+
+Configure your VirusTotal API key.
+
+For safer key management, use an environment variable rather than committing your API key to the repository. The script should read it using:
+
+import os
+
+API_KEY = os.getenv("VIRUSTOTAL_API_KEY")
+
+Set the environment variable before running the script.
+
+Run the Python script:
+
+python main.py
+
+Review the generated CSV report and uncertainty log.
+
+Project Structure
+
+PRAFM/
+│
+├── main.py
+├── requirements.txt
+├── README.md
+│
+├── outputs/
+│   ├── permissions_report.csv
+│   └── uncertain_permissions_log.txt
+│
+└── docs/
+    └── methodology.md
+
+The folders shown above are a suggested repository structure. Create them as needed when organising the project.
+
+Scope and Limitations
+
+PRAFM focuses on the analysis of Android application permission metadata. Its classifications are intended to support privacy-oriented investigation and provide an initial indication of potentially sensitive permission usage.
+
+There are several important limitations:
+
+Declared permissions do not necessarily indicate that an application actively uses the associated functionality.
+
+Permission declarations alone cannot establish what personal data an application actually collects, processes or transmits.
+
+The categorisation process uses predefined mappings and heuristic rules; some permissions may require manual interpretation.
+
+The tool does not perform dynamic application analysis, network traffic inspection or runtime behaviour monitoring.
+
+The output should be treated as an investigative aid rather than a definitive privacy assessment or quantitative risk score.
+
+Security and Responsible Use
+
+Do not commit VirusTotal API keys or other credentials to the repository.
+
+Use an environment variable or another secure configuration method for API credentials.
+
+Check the provenance and redistribution rights of application hashes and associated sample data before publishing them.
+
+Review generated reports before sharing them publicly, particularly if they contain sensitive or identifying information.
+
+Project Focus
+
+PRAFM explores the relationship between Android application permissions and mobile privacy. It brings together automated metadata collection, permission classification and privacy-oriented categorisation to support a more structured understanding of the information and device capabilities an application may request.
+
+Areas of interest: Mobile Application Security · Android Privacy · Permission Analysis · Data Protection · Privacy Engineering
+
+<div align="center">
+
+Developed as a practical exploration of privacy assessment in Android applications.
+
+</div>
