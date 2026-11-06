@@ -28,7 +28,7 @@ The aim is to make permission-related privacy indicators easier to identify, int
 - **Permission extraction** – Recursively identifies permissions declared in the retrieved application data.
 - **Permission classification** – Uses permission definitions, protection levels and predefined rules to distinguish user-visible and user-hidden permissions.
 - **Privacy categorisation** – Groups permissions into three categories:
-  - ## Core Privacy Classification
+  - # Core Privacy Classification
 <p>
   <img src="https://img.shields.io/badge/PII-Personally%20Identifiable%20Information-2563EB?style=for-the-badge" alt="PII - Blue"/>
 </p>
