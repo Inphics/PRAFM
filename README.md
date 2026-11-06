@@ -28,9 +28,24 @@ The aim is to make permission-related privacy indicators easier to identify, int
 - **Permission extraction** – Recursively identifies permissions declared in the retrieved application data.
 - **Permission classification** – Uses permission definitions, protection levels and predefined rules to distinguish user-visible and user-hidden permissions.
 - **Privacy categorisation** – Groups permissions into three categories:
-  - **PII** – Permissions potentially associated with personally identifiable information.
-  - **Digital** – Permissions associated with digital information, services or device functionality.
-  - **Cyberphysical** – Permissions associated with physical device capabilities and interactions with the surrounding environment.
+  - ## Core Privacy Classification
+<p>
+  <img src="https://img.shields.io/badge/PII-Personally%20Identifiable%20Information-2563EB?style=for-the-badge" alt="PII - Blue"/>
+</p>
+
+Permissions potentially associated with personally identifiable or sensitive user information.
+
+<p>
+  <img src="https://img.shields.io/badge/Digital-Digital%20Information%20%26%20Functionality-16A34A?style=for-the-badge" alt="Digital - Green"/>
+</p>
+
+Permissions associated with digital information, services and device functionality.
+
+<p>
+  <img src="https://img.shields.io/badge/Cyberphysical-Physical%20Device%20%26%20Environment%20Interaction-EA580C?style=for-the-badge" alt="Cyberphysical - Orange"/>
+</p>
+
+Permissions associated with physical device capabilities and interactions with the surrounding environment.
 - **Permission descriptions** – Retrieves relevant descriptions from AOSP and Android developer documentation.
 - **Uncertainty logging** – Records permissions that cannot be confidently categorised for further review.
 - **CSV reporting** – Exports the analysis into a structured CSV file for further inspection.
