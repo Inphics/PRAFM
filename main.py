@@ -1,12 +1,14 @@
 # ─────────────────────────────────────────────────────────────────────────────
 # Imports
 # ─────────────────────────────────────────────────────────────────────────────
+import os
+from pathlib import Path
+
 import requests
 import csv
 import re
 import xml.etree.ElementTree as ET
 import json
-import os
 from bs4 import BeautifulSoup
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -14,8 +16,27 @@ from bs4 import BeautifulSoup
 # ─────────────────────────────────────────────────────────────────────────────
 API_KEY = os.getenv("VIRUSTOTAL_API_KEY")
 
-# List of file hashes to process
-HASHES = [...]
+# Keep private SHA-256 hashes in hashes.txt (excluded from Git).
+HASHES_FILE = Path(__file__).with_name("hashes.txt")
+
+
+def load_hashes():
+    if not HASHES_FILE.is_file():
+        raise FileNotFoundError(
+            "Missing hashes.txt. Create it next to main.py with one SHA-256 hash per line."
+        )
+    hashes = [
+        line.strip()
+        for line in HASHES_FILE.read_text(encoding="utf-8").splitlines()
+        if line.strip() and not line.lstrip().startswith("#")
+    ]
+    invalid = [h for h in hashes if not re.fullmatch(r"[0-9a-fA-F]{64}", h)]
+    if invalid:
+        raise ValueError("hashes.txt contains invalid SHA-256 hashes (expected 64 hex characters).")
+    if not hashes:
+        raise ValueError("hashes.txt is empty. Add at least one SHA-256 hash.")
+    return hashes
+
 
 # Filenames for output
 CSV_FILENAME = "permissions_report.csv"
@@ -509,6 +530,9 @@ def collect_permissions(data, pkg, logf):
 # ─────────────────────────────────────────────────────────────────────────────
 
 def main():
+    if not API_KEY:
+        raise RuntimeError("Set the VIRUSTOTAL_API_KEY environment variable before running.")
+    hashes = load_hashes()
     print("Fetching AOSP mappings…")
     fetch_aosp_mappings()
     print(f"Loaded {len(PERM_TO_GROUP)} permissions from AOSP.")
@@ -528,7 +552,7 @@ def main():
             "Category"
         ])
 
-        for h in HASHES:
+        for h in hashes:
             print(f"\n→ Fetching hash: {h}")
             r = requests.get(
                 f"https://www.virustotal.com/api/v3/files/{h}",
