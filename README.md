@@ -4,7 +4,7 @@
 
 ### PRIVACY RISK ASSESSMENT FOR MOBILE APPLICATIONS
 
-**ANDROID PRIVACY & SECURITY**
+**MOBILE PRIVACY & SECURITY**
 
 `Python` · `VirusTotal API` · `Android Permissions` · `Privacy Engineering`
 
